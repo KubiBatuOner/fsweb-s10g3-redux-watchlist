@@ -1,15 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
-import { BrowserRouter } from "react-router-dom"
+import { BrowserRouter } from "react-router-dom";
+import { applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import logger from "redux-logger";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import { reducer } from "./reducers/listReducer";
+import { legacy_createStore as createStore } from "redux";
+
+const store = createStore(reducer, applyMiddleware(logger));
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
 );
 
